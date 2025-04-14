@@ -1,0 +1,6 @@
+﻿services:
+  bankaccount:
+    image: bankaccount
+    build:
+      context: .
+      dockerfile: BankAccount/Dockerfile
