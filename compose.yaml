@@ -1,6 +1,30 @@
 ﻿services:
-  bankaccount:
+  api:
     image: bankaccount
+    container_name: api
     build:
       context: .
       dockerfile: BankAccount/Dockerfile
+    ports:
+      - 5000:8080
+      - 5001:8081
+
+  postgres:
+    image: postgres:17
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=bankaccount
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  seq:
+    image: datalust/seq:2024.3
+    container_name: seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 8081:80
